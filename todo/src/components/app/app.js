@@ -25,23 +25,24 @@ export default class App extends Component {
     search: ""
   };
 
-  componentWillMount() {
-    if (localStorage["myTodoList"])
-      this.setState(JSON.parse(localStorage["myTodoList"]));
-  }
-
   componentWillUpdate(nextProps, nextState) {
-    localStorage["myTodoList"] = JSON.stringify(nextState);
+    localStorage[nextState.login] = JSON.stringify(nextState);
   }
 
   downloadUser = async (login, password) => {
-    const response = await fetch("http://localhost:3000/data/data.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    });
-    const result = await response.json();
+    const data = await JSON.parse(localStorage[login]);
+    if (data.password !== password) {
+      console.log("введен неверный пароль");
+      return;
+    }
+    this.setState({ login, password });
+    if (data) this.setState(data);
+  };
+
+  addUser = async (login, password) => {
+    await this.setState({ login, password });
+    console.log(1);
+    localStorage[login] = await JSON.stringify(this.state);
   };
 
   onItemAdded = label => {
@@ -153,8 +154,9 @@ export default class App extends Component {
 
         <ItemAddForm onItemAdded={this.onItemAdded} />
         <Overlay />
-        <LoginForm downloadUser={this.downloadUser} />
+        <LoginForm downloadUser={this.downloadUser} addUser={this.addUser} />
       </div>
     );
   }
 }
+// localStorage.clear();
