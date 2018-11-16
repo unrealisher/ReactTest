@@ -1,28 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import Header from '../header';
-import RandomPlanet from '../random-planet';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import Header from "../header";
+import RandomPlanet from "../random-planet";
+import PeoplePage from "../people-page";
 
-import './app.css';
+import "./app.css";
 
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <RandomPlanet />
+export default class App extends React.Component {
+  state = {};
 
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails />
-        </div>
+  render() {
+    return (
+      <div className="main-body">
+        <Header />
+        <RandomPlanet />
+        <PeoplePage />
       </div>
-    </div>
-  );
-};
-
-export default App;
+    );
+  }
+}

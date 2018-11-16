@@ -96,7 +96,7 @@ export default class App extends Component {
 
   createItem(label) {
     return {
-      id: ++this.maxId,
+      id: this.state.items[this.state.items.length - 1].id + 1,
       label,
       important: false,
       done: false
