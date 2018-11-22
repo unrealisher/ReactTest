@@ -41,7 +41,6 @@ export default class App extends Component {
 
   addUser = async (login, password) => {
     await this.setState({ login, password });
-    console.log(1);
     localStorage[login] = await JSON.stringify(this.state);
   };
 
